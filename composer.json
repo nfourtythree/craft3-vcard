@@ -1,0 +1,44 @@
+{
+    "name": "nfourtythree/vcard",
+    "description": "vCard generator plugin for Craft cms 3",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "vcard"
+    ],
+    "support": {
+        "docs": "https://github.com/nfourtythree/craft3-vcard/blob/master/README.md",
+        "issues": "https://github.com/nfourtythree/craft3-vcard/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nathaniel Hammond (nfourtythree)",
+            "homepage": "http://n43.me"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1",
+        "jeroendesloovere/vcard": "^1.7"
+    },
+    "autoload": {
+        "psr-4": {
+          "nfourtythree\\vcard\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "vCard",
+        "handle": "vcard",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/nfourtythree/craft3-vcard/master/CHANGELOG.md",
+        "components": {
+            "vCardService": "nfourtythree\\vcard\\services\\VCardService"
+        },
+        "class": "nfourtythree\\vcard\\VCard"
+    }
+}
