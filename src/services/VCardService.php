@@ -296,7 +296,6 @@ class VCardService extends Component
 
   public function decodeUrlParam($optionsString = "")
   {
-
     $optionsString = $this->decrypt($optionsString);
     $options = unserialize($optionsString);
 
@@ -306,6 +305,10 @@ class VCardService extends Component
   protected function encrypt($string)
   {
     $key = VCard::$plugin->getSettings()->salt;
+    if (!$key || $key == 's34s4L7') {
+        throw new \RuntimeException('You must provide a valid salt key.');
+    }
+
     $key = md5( $key );
     $iv = substr( md5( $key ), 0, 16);
 
@@ -322,6 +325,10 @@ class VCardService extends Component
   public function decrypt($string)
   {
     $key = VCard::$plugin->getSettings()->salt;
+    if (!$key || $key == 's34s4L7') {
+        throw new \RuntimeException('You must provide a valid salt key.');
+    }
+
     $key = md5( $key );
     $iv = substr( md5( $key ), 0, 16);
 

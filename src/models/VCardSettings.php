@@ -7,5 +7,5 @@ use Yii;
 
 class VCardSettings extends Model
 {
-    public $salt = 's34s4L7';
+    public $salt = null;
 }

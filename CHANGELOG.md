@@ -1,9 +1,15 @@
 # vCard Changelog
 
-All notable changes to this project will be documented in this file.
+## Unreleased
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
+### Changed
+- The previous default salt is no longer a valid salt to be used.
+- There is no longer a default salt, one must be set before using the plugin.
+
+### Fixed
+- Fixed a vulnerability when the default salt has not been changed. ([#4](https://github.com/nfourtythree/craft3-vcard/issues/4))  
 
 ## 1.0.0 - 2019-01-31
+
 ### Added
 - Initial release

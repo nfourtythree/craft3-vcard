@@ -23,5 +23,5 @@
  */
 
 return [
-  'salt' => 's34s4L7'
+  'salt' => null
 ];
