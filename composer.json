@@ -2,7 +2,7 @@
     "name": "nfourtythree/vcard",
     "description": "vCard generator plugin for Craft cms 3",
     "type": "craft-plugin",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "keywords": [
         "craft",
         "cms",
@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0-RC1",
+        "craftcms/cms": "^3.0.0",
         "jeroendesloovere/vcard": "^1.7"
     },
     "autoload": {
