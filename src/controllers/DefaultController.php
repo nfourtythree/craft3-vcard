@@ -62,6 +62,7 @@ class DefaultController extends Controller
     $options = VCard::$plugin->service->decodeUrlParam( $vcard );
 
     VCard::$plugin->service->generateVcard( $options );
+    Craft::$app->response->format = \yii\web\Response::FORMAT_RAW;
 
     Craft::$app->end();
   }
