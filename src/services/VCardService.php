@@ -192,7 +192,7 @@ class VCardService extends Component
           } else {
             $tmp = [];
             foreach ($url as $key => $row) {
-              $tmp[] = new VCard_EmailModel($this->_createArrayFromString("address", $row));
+              $tmp[] = new VCard_UrlModel($this->_createArrayFromString("address", $row));
             }
             return $tmp;
           }
