@@ -3,7 +3,7 @@
 ## Unreleased
 
 ### Fixed
-- Fixed an error that could occur when a vCard was created with multiple URLs. ([#8](https://github.com/nfourtythree/craft3-vcard/pull/8))
+- Fixed an error that could occur when creating a vCard with multiple URLs. ([#8](https://github.com/nfourtythree/craft3-vcard/pull/8))
 
 ## 1.1.0 - 2020-05-20 [CRITICAL]
 
