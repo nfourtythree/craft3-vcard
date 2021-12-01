@@ -10,6 +10,7 @@
 
 namespace nfourtythree\vcard\services;
 
+use craft\helpers\ArrayHelper;
 use nfourtythree\vcard\VCard;
 use nfourtythree\vcard\models\VCardModel;
 use nfourtythree\vcard\models\VCard_AddressModel;
@@ -145,6 +146,10 @@ class VCardService extends Component
     {
         if (!empty($address)) {
             // check to see if we are dealing with multiple addresses
+            if (ArrayHelper::isAssociative($address)) {
+                $address = [$address];
+            }
+
             $tmp = [];
             foreach ($address as $a) {
                 $tmp[] = new VCard_AddressModel($a);
@@ -201,6 +206,10 @@ class VCardService extends Component
     private function _populateEmailModel($email)
     {
         if (is_array($email)) {
+            if (ArrayHelper::isAssociative($email)) {
+                $email = [$email];
+            }
+
             $emailModels = [];
             foreach ($email as $row) {
                 $emailModels[] = new VCard_EmailModel($this->_createArrayFromString("address", $row));
@@ -224,6 +233,10 @@ class VCardService extends Component
     private function _populateUrlModel($url)
     {
         if (is_array($url)) {
+            if (ArrayHelper::isAssociative($url)) {
+                $url = [$url];
+            }
+
             $urlModels = [];
             foreach ($url as $row) {
                 $urlModels[] = new VCard_UrlModel($this->_createArrayFromString("address", $row));
