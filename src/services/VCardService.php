@@ -22,6 +22,7 @@ use JeroenDesloovere\VCard\VCard as VCardLib;
 use Craft;
 use craft\base\Component;
 use craft\helpers\UrlHelper;
+use RuntimeException;
 
 /**
  * VCardService Service
@@ -102,7 +103,7 @@ class VCardService extends Component
                 }
             } else {
 
-                foreach ($vcard->getErrors() as $key => $error) {
+                foreach ($vcard->getErrors() as $error) {
                     Craft::error($error, __METHOD__);
                 }
             }
@@ -155,7 +156,7 @@ class VCardService extends Component
             }
 
             $tmp = [];
-            foreach ($phoneNumber as $key => $row) {
+            foreach ($phoneNumber as $row) {
                 $tmp[] = new VCard_PhoneNumberModel($this->_createArrayFromString("number", $row));
             }
 
@@ -194,7 +195,7 @@ class VCardService extends Component
             }
 
             $tmp = [];
-            foreach ($email as $key => $row) {
+            foreach ($email as $row) {
                 $tmp[] = new VCard_EmailModel($this->_createArrayFromString("address", $row));
             }
             return $tmp;
@@ -218,7 +219,7 @@ class VCardService extends Component
             }
 
             $tmp = [];
-            foreach ($url as $key => $row) {
+            foreach ($url as $row) {
                 $tmp[] = new VCard_EmailModel($this->_createArrayFromString("address", $row));
             }
             return $tmp;
@@ -247,58 +248,50 @@ class VCardService extends Component
 
         if ($vcardModel->url and is_array($vcardModel->url)) {
             foreach ($vcardModel->url as $url) {
-                if ($url instanceof VCard_UrlModel) {
-                    if ($url->validate()) {
-                        $vcard->addUrl(
-                            $url->address,
-                            $url->type
-                        );
-                    }
+                if (($url instanceof VCard_UrlModel) && $url->validate()) {
+                    $vcard->addUrl(
+                        $url->address,
+                        $url->type
+                    );
                 }
             }
         }
 
         if ($vcardModel->address and is_array($vcardModel->address)) {
             foreach ($vcardModel->address as $address) {
-                if ($address instanceof VCard_AddressModel) {
-                    if ($address->validate()) {
-                        $vcard->addAddress(
-                            $address->name,
-                            $address->extended,
-                            $address->street,
-                            $address->city,
-                            $address->region,
-                            $address->zip,
-                            $address->country,
-                            $address->type
-                        );
-                    }
+                if (($address instanceof VCard_AddressModel) && $address->validate()) {
+                    $vcard->addAddress(
+                        $address->name,
+                        $address->extended,
+                        $address->street,
+                        $address->city,
+                        $address->region,
+                        $address->zip,
+                        $address->country,
+                        $address->type
+                    );
                 }
             }
         }
 
         if ($vcardModel->phoneNumber and is_array($vcardModel->phoneNumber)) {
             foreach ($vcardModel->phoneNumber as $phoneNumber) {
-                if ($phoneNumber instanceof VCard_PhoneNumberModel) {
-                    if ($phoneNumber->validate()) {
-                        $vcard->addPhoneNumber(
-                            $phoneNumber->number,
-                            $phoneNumber->type
-                        );
-                    }
+                if (($phoneNumber instanceof VCard_PhoneNumberModel) && $phoneNumber->validate()) {
+                    $vcard->addPhoneNumber(
+                        $phoneNumber->number,
+                        $phoneNumber->type
+                    );
                 }
             }
         }
 
         if ($vcardModel->email and is_array($vcardModel->email)) {
             foreach ($vcardModel->email as $email) {
-                if ($email instanceof VCard_EmailModel) {
-                    if ($email->validate()) {
-                        $vcard->addEmail(
-                            $email->address,
-                            $email->type
-                        );
-                    }
+                if (($email instanceof VCard_EmailModel) && $email->validate()) {
+                    $vcard->addEmail(
+                        $email->address,
+                        $email->type
+                    );
                 }
             }
         }
@@ -318,7 +311,7 @@ class VCardService extends Component
      * @param array $options
      * @return string
      */
-    public function encodeUrlParam($options = []): string
+    public function encodeUrlParam(array $options = []): string
     {
         $optionsString = serialize($options);
 
@@ -329,7 +322,7 @@ class VCardService extends Component
      * @param string $optionsString
      * @return mixed
      */
-    public function decodeUrlParam($optionsString = "")
+    public function decodeUrlParam(string $optionsString = "")
     {
         $optionsString = $this->decrypt($optionsString);
         return unserialize($optionsString);
@@ -343,7 +336,7 @@ class VCardService extends Component
     {
         $key = VCard::$plugin->getSettings()->salt;
         if (!$key || $key == 's34s4L7') {
-            throw new \RuntimeException('You must provide a valid salt key.');
+            throw new RuntimeException('You must provide a valid salt key.');
         }
 
         $key = md5($key);
@@ -367,7 +360,7 @@ class VCardService extends Component
     {
         $key = VCard::$plugin->getSettings()->salt;
         if (!$key || $key == 's34s4L7') {
-            throw new \RuntimeException('You must provide a valid salt key.');
+            throw new RuntimeException('You must provide a valid salt key.');
         }
 
         $key = md5($key);
