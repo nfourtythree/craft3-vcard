@@ -276,7 +276,7 @@ class VCardService extends Component
                 if (($url instanceof VCard_UrlModel) && $url->validate()) {
                     $vcard->addUrl(
                         $url->address,
-                        ($url->type ? 'TYPE=' . $url->type : '')
+                        $this->_fixTypeString($url->type)
                     );
                 }
             }
@@ -293,7 +293,7 @@ class VCardService extends Component
                         $address->region,
                         $address->zip,
                         $address->country,
-                        ($address->type ? 'TYPE=' . $address->type : '')
+                        $this->_fixTypeString($address->type)
                     );
                 }
             }
@@ -304,7 +304,7 @@ class VCardService extends Component
                 if (($phoneNumber instanceof VCard_PhoneNumberModel) && $phoneNumber->validate()) {
                     $vcard->addPhoneNumber(
                         $phoneNumber->number,
-                        ($phoneNumber->type ? 'TYPE=' . $phoneNumber->type : '')
+                        $this->_fixTypeString($phoneNumber->type)
                     );
                 }
             }
@@ -315,7 +315,7 @@ class VCardService extends Component
                 if (($email instanceof VCard_EmailModel) && $email->validate()) {
                     $vcard->addEmail(
                         $email->address,
-                        ($email->type ? 'TYPE=' . $email->type : '')
+                        $this->_fixTypeString($email->type)
                     );
                 }
             }
@@ -330,6 +330,19 @@ class VCardService extends Component
         }
 
         return $vcard;
+    }
+
+    /**
+     * @param string $type
+     * @return string
+     */
+    private function _fixTypeString(string $type): string
+    {
+        if ($type && strpos($type, 'TYPE=') === false) {
+            $type = 'TYPE=' . $type;
+        }
+
+        return $type;
     }
 
     /**
