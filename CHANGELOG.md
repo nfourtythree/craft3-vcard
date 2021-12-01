@@ -1,5 +1,12 @@
 # Release notes for vCard
 
+## 1.2.0 - 2021-12-01
+
+### Fixed
+- Fixed a bug where type was not being set correctly for emails, addresses, phone numbers, and urls. ([#7](https://github.com/nfourtythree/craft3-vcard/issues/7))
+- Fixed a bug where the vCard was not downloading correctly.
+- Fixed an error that could occur when creating a vCard with multiple URLs. ([#8](https://github.com/nfourtythree/craft3-vcard/pull/8))
+
 ## 1.1.0 - 2020-05-20 [CRITICAL]
 
 ### Changed

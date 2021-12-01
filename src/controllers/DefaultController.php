@@ -61,7 +61,7 @@ class DefaultController extends Controller
   {
     $options = VCard::$plugin->service->decodeUrlParam( $vcard );
 
-    VCard::$plugin->service->generateVcard( $options );
+    VCard::$plugin->service->generateVcard($options);
 
     Craft::$app->end();
   }
