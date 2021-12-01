@@ -1,6 +1,6 @@
 # Release notes for vCard
 
-## Unreleased
+## 1.2.1 - 2021-12-01
 
 ### Fixed
 - Fixed outdated readme.
