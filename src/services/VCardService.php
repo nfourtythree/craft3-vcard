@@ -23,6 +23,9 @@ use Craft;
 use craft\base\Component;
 use craft\helpers\UrlHelper;
 use RuntimeException;
+use yii\base\ExitException;
+use yii\web\HttpException;
+use yii\web\RangeNotSatisfiableHttpException;
 
 /**
  * VCardService Service
@@ -56,6 +59,9 @@ class VCardService extends Component
     /**
      * @param array $options
      * @return string|void
+     * @throws ExitException
+     * @throws HttpException
+     * @throws RangeNotSatisfiableHttpException
      */
     public function generateOutput(array $options = [])
     {
@@ -66,6 +72,9 @@ class VCardService extends Component
      * @param array $options
      * @param string $action
      * @return string|void
+     * @throws ExitException
+     * @throws HttpException
+     * @throws RangeNotSatisfiableHttpException
      */
     public function generateVcard(array $options = [], string $action = "download")
     {
@@ -98,7 +107,12 @@ class VCardService extends Component
                         return $vcardData->getOutput();
                     case 'download':
                     default:
-                        $vcardData->download();
+                        $output = $vcardData->getOutput();
+
+                        Craft::$app->getResponse()->sendContentAsFile($output, sprintf('%s.%s', $vcardData->getFilename(), $vcardData->getFileExtension()), [
+                            'mimeType' => $vcardData->getContentType(),
+                        ]);
+                        Craft::$app->end();
                         break;
                 }
             } else {
