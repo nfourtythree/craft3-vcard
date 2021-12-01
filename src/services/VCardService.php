@@ -186,19 +186,18 @@ class VCardService extends Component
      */
     private function _populateEmailModel($email)
     {
-        if (is_array($email) or (is_string($email) and $email)) {
-
-            $email = $this->_createArrayFromString("address", $email);
-            // check to see if we are dealing with multiple emails
-            if (count($email) == count($email, COUNT_RECURSIVE)) {
-                return [new VCard_EmailModel($email)];
-            }
-
-            $tmp = [];
+        if (is_array($email)) {
+            $emailModels = [];
             foreach ($email as $row) {
-                $tmp[] = new VCard_EmailModel($this->_createArrayFromString("address", $row));
+                $emailModels[] = new VCard_EmailModel($this->_createArrayFromString("address", $row));
             }
-            return $tmp;
+
+            return $emailModels;
+        }
+
+        if (is_string($email) and $email) {
+            $email = $this->_createArrayFromString("address", $email);
+            return [new VCard_EmailModel($email)];
         }
 
         return '';
@@ -210,19 +209,18 @@ class VCardService extends Component
      */
     private function _populateUrlModel($url)
     {
-        if (is_array($url) or (is_string($url) and $url)) {
-
-            $url = $this->_createArrayFromString("address", $url);
-            // check to see if we are dealing with multiple emails
-            if (count($url) == count($url, COUNT_RECURSIVE)) {
-                return [new VCard_UrlModel($url)];
-            }
-
-            $tmp = [];
+        if (is_array($url)) {
+            $urlModels = [];
             foreach ($url as $row) {
-                $tmp[] = new VCard_EmailModel($this->_createArrayFromString("address", $row));
+                $urlModels[] = new VCard_UrlModel($this->_createArrayFromString("address", $row));
             }
-            return $tmp;
+
+            return $urlModels;
+        }
+
+        if (is_string($url) and $url) {
+            $url = $this->_createArrayFromString("address", $url);
+            return [new VCard_UrlModel($url)];
         }
 
         return '';
