@@ -10,10 +10,10 @@
 
 namespace nfourtythree\vcard\controllers;
 
-use nfourtythree\vcard\VCard;
-
 use Craft;
+
 use craft\web\Controller;
+use nfourtythree\vcard\VCard;
 use yii\base\ExitException;
 
 /**

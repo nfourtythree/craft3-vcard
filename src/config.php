@@ -23,5 +23,5 @@
  */
 
 return [
-  'salt' => null
+  'salt' => null,
 ];

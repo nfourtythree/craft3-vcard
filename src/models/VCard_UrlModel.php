@@ -10,10 +10,9 @@
 
 namespace nfourtythree\vcard\models;
 
-use nfourtythree\vcard\VCard;
-
-use Craft;
 use craft\base\Model;
+
+use nfourtythree\vcard\VCard;
 
 /**
  * VCard_UrlModel Model

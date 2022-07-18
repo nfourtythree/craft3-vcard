@@ -11,14 +11,14 @@
 namespace nfourtythree\vcard;
 
 use craft\base\Model;
-use nfourtythree\vcard\services\VCardService;
-use nfourtythree\vcard\variables\VCardVariable;
-use nfourtythree\vcard\models\VCardSettings;
-
 use craft\base\Plugin;
-use craft\web\UrlManager;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\twig\variables\CraftVariable;
+
+use craft\web\UrlManager;
+use nfourtythree\vcard\models\VCardSettings;
+use nfourtythree\vcard\services\VCardService;
+use nfourtythree\vcard\variables\VCardVariable;
 
 use yii\base\Event;
 

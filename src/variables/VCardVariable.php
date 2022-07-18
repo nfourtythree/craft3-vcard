@@ -12,8 +12,6 @@ namespace nfourtythree\vcard\variables;
 
 use nfourtythree\vcard\VCard;
 
-use Craft;
-use craft\helpers\Template;
 use yii\base\ExitException;
 use yii\web\HttpException;
 use yii\web\RangeNotSatisfiableHttpException;
@@ -40,5 +38,4 @@ class VCardVariable
     {
         return VCard::getInstance()->service->generateOutput($options);
     }
-
 }

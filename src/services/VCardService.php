@@ -9,19 +9,19 @@
  */
 namespace nfourtythree\vcard\services;
 
-use craft\helpers\ArrayHelper;
-use nfourtythree\vcard\VCard;
-use nfourtythree\vcard\models\VCardModel;
-use nfourtythree\vcard\models\VCard_AddressModel;
-use nfourtythree\vcard\models\VCard_EmailModel;
-use nfourtythree\vcard\models\VCard_PhoneNumberModel;
-use nfourtythree\vcard\models\VCard_UrlModel;
-
-use JeroenDesloovere\VCard\VCard as VCardLib;
-
 use Craft;
 use craft\base\Component;
+use craft\helpers\ArrayHelper;
 use craft\helpers\UrlHelper;
+use JeroenDesloovere\VCard\VCard as VCardLib;
+use nfourtythree\vcard\models\VCard_AddressModel;
+use nfourtythree\vcard\models\VCard_EmailModel;
+
+use nfourtythree\vcard\models\VCard_PhoneNumberModel;
+
+use nfourtythree\vcard\models\VCard_UrlModel;
+use nfourtythree\vcard\models\VCardModel;
+use nfourtythree\vcard\VCard;
 use RuntimeException;
 use yii\base\ExitException;
 use yii\web\HttpException;
@@ -79,7 +79,6 @@ class VCardService extends Component
     public function generateVcard(array $options = [], string $action = "download")
     {
         if ($this->_validateOptions($options)) {
-
             if (isset($options['address'])) {
                 $options['address'] = $this->_populateAddressModel($options['address']);
             }
@@ -99,7 +98,6 @@ class VCardService extends Component
             $vcard = new VCardModel($options);
 
             if ($vcard->validate()) {
-
                 $vcardData = $this->_createVcardData($vcard);
 
                 switch ($action) {
@@ -116,7 +114,6 @@ class VCardService extends Component
                         break;
                 }
             } else {
-
                 foreach ($vcard->getErrors() as $error) {
                     Craft::error($error, __METHOD__);
                 }
@@ -166,7 +163,6 @@ class VCardService extends Component
     private function _populatePhoneNumberModel($phoneNumber): string|array
     {
         if (is_array($phoneNumber) or (is_string($phoneNumber) and $phoneNumber)) {
-
             $phoneNumber = $this->_createArrayFromString("number", $phoneNumber);
             // check to see if we are dealing with multiple phoneNumbers
             if (count($phoneNumber) == count($phoneNumber, COUNT_RECURSIVE)) {
@@ -414,5 +410,4 @@ class VCardService extends Component
             "\0"
         );
     }
-
 }
