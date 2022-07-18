@@ -1,13 +1,12 @@
 <?php
 /**
- * vCard plugin for Craft CMS 3.x
+ * vCard plugin for Craft CMS 4.x
  *
- * vCard generator plugin for Craft cms 3
+ * vCard generator plugin for Craft CMS 4
  *
  * @link      http://n43.me
- * @copyright Copyright (c) 2019 Nathaniel Hammond (nfourtythree)
+ * @copyright Copyright (c) 2022 Nathaniel Hammond (nfourtythree)
  */
-
 namespace nfourtythree\vcard\services;
 
 use craft\helpers\ArrayHelper;
@@ -140,9 +139,9 @@ class VCardService extends Component
 
     /**
      * @param array $address
-     * @return array|VCard_AddressModel[]|string
+     * @return VCard_AddressModel[]|string
      */
-    private function _populateAddressModel(array $address)
+    private function _populateAddressModel(array $address): array|string
     {
         if (!empty($address)) {
             // check to see if we are dealing with multiple addresses
@@ -162,9 +161,9 @@ class VCardService extends Component
 
     /**
      * @param $phoneNumber
-     * @return array|VCard_PhoneNumberModel[]|string
+     * @return VCard_PhoneNumberModel[]|string
      */
-    private function _populatePhoneNumberModel($phoneNumber)
+    private function _populatePhoneNumberModel($phoneNumber): string|array
     {
         if (is_array($phoneNumber) or (is_string($phoneNumber) and $phoneNumber)) {
 
@@ -201,9 +200,9 @@ class VCardService extends Component
 
     /**
      * @param $email
-     * @return array|VCard_EmailModel[]|string
+     * @return VCard_EmailModel[]
      */
-    private function _populateEmailModel($email)
+    private function _populateEmailModel($email): array
     {
         if (is_array($email)) {
             if (ArrayHelper::isAssociative($email)) {
@@ -223,14 +222,14 @@ class VCardService extends Component
             return [new VCard_EmailModel($email)];
         }
 
-        return '';
+        return [];
     }
 
     /**
      * @param $url
-     * @return array|VCard_UrlModel[]|string
+     * @return VCard_UrlModel[]
      */
-    private function _populateUrlModel($url)
+    private function _populateUrlModel($url): array
     {
         if (is_array($url)) {
             if (ArrayHelper::isAssociative($url)) {
@@ -250,7 +249,7 @@ class VCardService extends Component
             return [new VCard_UrlModel($url)];
         }
 
-        return '';
+        return [];
     }
 
     /**
@@ -360,7 +359,7 @@ class VCardService extends Component
      * @param string $optionsString
      * @return mixed
      */
-    public function decodeUrlParam(string $optionsString = "")
+    public function decodeUrlParam(string $optionsString = ""): mixed
     {
         $optionsString = $this->decrypt($optionsString);
         return unserialize($optionsString);
@@ -372,7 +371,7 @@ class VCardService extends Component
      */
     protected function encrypt($string): string
     {
-        $key = VCard::$plugin->getSettings()->salt;
+        $key = VCard::getInstance()->getSettings()->salt;
         if (!$key || $key == 's34s4L7') {
             throw new RuntimeException('You must provide a valid salt key.');
         }
@@ -396,7 +395,7 @@ class VCardService extends Component
      */
     public function decrypt($string): string
     {
-        $key = VCard::$plugin->getSettings()->salt;
+        $key = VCard::getInstance()->getSettings()->salt;
         if (!$key || $key == 's34s4L7') {
             throw new RuntimeException('You must provide a valid salt key.');
         }
