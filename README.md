@@ -1,12 +1,12 @@
 ![Plugin Icon](resources/img/icon.png)
 
-# vCard plugin for Craft CMS 3.x
+# vCard plugin for Craft CMS 4.x
 
-vCard generator plugin for Craft cms 3
+vCard generator plugin for Craft CMS 4
 
 ## Requirements
 
-This plugin requires Craft CMS 3.7.23 or later.
+This plugin requires Craft CMS 4.1.0 or later.
 
 ## Installation
 
@@ -40,8 +40,7 @@ The only thing that is really `required` is first name. Everything else is optio
 
 There is a link variable available for usage in templates `craft.vCard.link(options)`
 
-```
-
+```twig
 {% set options = {
   firstName: "Johnny",
   lastName: "Appleseed",
@@ -74,28 +73,27 @@ There is a link variable available for usage in templates `craft.vCard.link(opti
 } %}
 
 <a href="{{ craft.vCard.link(options) }}">Download my vCard</a>
-
 ```
 
 
 ### Options
 
-Name | Type | Example
---- | --- | ---
-firstName | String | Johnny
-lastName | String | Appleseed
-additional | String | Jim (*commonly a middle name*)
-prefix | String | Mr
-suffix | String | Esq
-company | String | Apple Inc
-jobTitle | String | Demo Data Guru
-email | String \| Array | [See email docs](#email)
-url | String \| Array | [See url docs](#url)
-address | String \| Array | [See address docs](#address)
-phoneNumber | String \| Array | [See phoneNumber docs](#phonenumber)
-birthday | String | 1985-10-26 (*YYYY-MM-DD format*)
-note | String | Johnny is amazing
-photo | String | http://example.com/images/avatar.jpg (*Url to image*)
+| Name        | Type         | Example                                               |
+|-------------|--------------|-------------------------------------------------------|
+| firstName   | String       | Johnny                                                |
+| lastName    | String       | Appleseed                                             |
+| additional  | String       | Jim (*commonly a middle name*)                        |
+| prefix      | String       | Mr                                                    |
+| suffix      | String       | Esq                                                   |
+| company     | String       | Apple Inc                                             |
+| jobTitle    | String       | Demo Data Guru                                        |
+| email       | String/Array | [See email docs](#email)                              |
+| url         | String/Array | [See url docs](#url)                                  |
+| address     | String/Array | [See address docs](#address)                          |
+| phoneNumber | String/Array | [See phoneNumber docs](#phonenumber)                  |
+| birthday    | String       | 1985-10-26 (*YYYY-MM-DD format*)                      |
+| note        | String       | Johnny is amazing                                     |
+| photo       | String       | http://example.com/images/avatar.jpg (*Url to image*) |
 
 ---
 
@@ -103,11 +101,10 @@ photo | String | http://example.com/images/avatar.jpg (*Url to image*)
 
 This can be specified as either a string `johnny@apple.com` or an array (or even a mix!)
 
-Name | Type | Example
---- | --- | ---
-address | String | johnny@apple.com
-type | String | type may be PREF | WORK | HOME or any combination of these: e.g. "PREF;WORK". This is not required
-
+| Name    | Type   | Example                                                                                          |
+|---------|--------|--------------------------------------------------------------------------------------------------|
+| address | String | johnny@apple.com                                                                                 |
+| type    | String | type may be PREF, WORK, HOME or any combination of these: e.g. "PREF;WORK". This is not required |
 
 ```
   email: {
@@ -131,18 +128,16 @@ type | String | type may be PREF | WORK | HOME or any combination of these: e.g.
       type: "PREF;HOME"
     }]
 
-
 ```
 
 ##### url
 
 This can be specified as either a string `http://apple.com` or an array (or even a mix!)
 
-Name | Type | Example
---- | --- | ---
-address | String | http://apple.com
-type | String | type may be WORK | HOME This is not required
-
+| Name    | Type   | Example                                     |
+|---------|--------|---------------------------------------------|
+| address | String | http://apple.com                            |
+| type    | String | type may be WORK, HOME This is not required |
 
 ```
   url: {
@@ -173,11 +168,10 @@ type | String | type may be WORK | HOME This is not required
 
 This can be specified as either a string `+1 234 567 89` or an array (or even a mix!)
 
-Name | Type | Example
---- | --- | ---
-number | String | +1 234 567 89
-type | String | Type may be PREF | WORK | HOME | VOICE | FAX | MSG | CELL | PAGER | BBS | CAR | MODEM | ISDN | VIDEO or any sensible combination, e.g. "PREF;WORK;VOICE"
-
+| Name   | Type   | Example                                                                                                                                      |
+|--------|--------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| number | String | +1 234 567 89                                                                                                                                |
+| type   | String | Type may be PREF, WORK, HOME, VOICE, FAX, MSG, CELL, PAGER, BBS, CAR, MODEM, ISDN, VIDEO or any sensible combination, e.g. "PREF;WORK;VOICE" |
 
 ```
   phoneNumber: {
@@ -208,16 +202,16 @@ type | String | Type may be PREF | WORK | HOME | VOICE | FAX | MSG | CELL | PAGE
 
 This can be either a single or multi array
 
-Name | Type | Example
---- | --- | ---
-name | String | Apple
-extended | String | Suite 1
-street | String | 1 Infinte Loop
-city | String | Cupertino
-region | String | CA
-zip | String | 95014
-country | String | USA
-type | String | type may be DOM | INTL | POSTAL | PARCEL | HOME | WORK or any combination of these: e.g. "WORK;PARCEL;POSTAL"
+| Name     | Type   | Example                                                                                                  |
+|----------|--------|----------------------------------------------------------------------------------------------------------|
+| name     | String | Apple                                                                                                    |
+| extended | String | Suite 1                                                                                                  |
+| street   | String | 1 Infinite Loop                                                                                          |
+| city     | String | Cupertino                                                                                                |
+| region   | String | CA                                                                                                       |
+| zip      | String | 95014                                                                                                    |
+| country  | String | USA                                                                                                      |
+| type     | String | type may be DOM, INTL, POSTAL, PARCEL, HOME, WORK or any combination of these: e.g. "WORK;PARCEL;POSTAL" |
 
 ```
   address: {
@@ -255,7 +249,7 @@ type | String | type may be DOM | INTL | POSTAL | PARCEL | HOME | WORK or any co
 
 * Clean up / refactor code to tidy code that was done quickly
 
-Brought to you by [Nathaniel Hammond (nfourtythree)](http://n43.me)
+Brought to you by [Nathaniel Hammond (nfourtythree)](https://n43.me)
 
 ###### Thanks to
 

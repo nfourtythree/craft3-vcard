@@ -1,28 +1,27 @@
 <?php
 /**
- * vCard plugin for Craft CMS 3.x
+ * vCard plugin for Craft CMS 4.x
  *
- * vCard generator plugin for Craft cms 3
+ * vCard generator plugin for Craft CMS 4
  *
  * @link      http://n43.me
- * @copyright Copyright (c) 2019 Nathaniel Hammond (nfourtythree)
+ * @copyright Copyright (c) 2022 Nathaniel Hammond (nfourtythree)
  */
-
 namespace nfourtythree\vcard\services;
-
-use craft\helpers\ArrayHelper;
-use nfourtythree\vcard\VCard;
-use nfourtythree\vcard\models\VCardModel;
-use nfourtythree\vcard\models\VCard_AddressModel;
-use nfourtythree\vcard\models\VCard_EmailModel;
-use nfourtythree\vcard\models\VCard_PhoneNumberModel;
-use nfourtythree\vcard\models\VCard_UrlModel;
-
-use JeroenDesloovere\VCard\VCard as VCardLib;
 
 use Craft;
 use craft\base\Component;
+use craft\helpers\ArrayHelper;
 use craft\helpers\UrlHelper;
+use JeroenDesloovere\VCard\VCard as VCardLib;
+use nfourtythree\vcard\models\VCard_AddressModel;
+use nfourtythree\vcard\models\VCard_EmailModel;
+
+use nfourtythree\vcard\models\VCard_PhoneNumberModel;
+
+use nfourtythree\vcard\models\VCard_UrlModel;
+use nfourtythree\vcard\models\VCardModel;
+use nfourtythree\vcard\VCard;
 use RuntimeException;
 use yii\base\ExitException;
 use yii\web\HttpException;
@@ -80,7 +79,6 @@ class VCardService extends Component
     public function generateVcard(array $options = [], string $action = "download")
     {
         if ($this->_validateOptions($options)) {
-
             if (isset($options['address'])) {
                 $options['address'] = $this->_populateAddressModel($options['address']);
             }
@@ -100,7 +98,6 @@ class VCardService extends Component
             $vcard = new VCardModel($options);
 
             if ($vcard->validate()) {
-
                 $vcardData = $this->_createVcardData($vcard);
 
                 switch ($action) {
@@ -114,10 +111,8 @@ class VCardService extends Component
                             'mimeType' => $vcardData->getContentType(),
                         ]);
                         Craft::$app->end();
-                        break;
                 }
             } else {
-
                 foreach ($vcard->getErrors() as $error) {
                     Craft::error($error, __METHOD__);
                 }
@@ -140,9 +135,9 @@ class VCardService extends Component
 
     /**
      * @param array $address
-     * @return array|VCard_AddressModel[]|string
+     * @return VCard_AddressModel[]|string
      */
-    private function _populateAddressModel(array $address)
+    private function _populateAddressModel(array $address): array|string
     {
         if (!empty($address)) {
             // check to see if we are dealing with multiple addresses
@@ -162,12 +157,11 @@ class VCardService extends Component
 
     /**
      * @param $phoneNumber
-     * @return array|VCard_PhoneNumberModel[]|string
+     * @return VCard_PhoneNumberModel[]|string
      */
-    private function _populatePhoneNumberModel($phoneNumber)
+    private function _populatePhoneNumberModel($phoneNumber): string|array
     {
         if (is_array($phoneNumber) or (is_string($phoneNumber) and $phoneNumber)) {
-
             $phoneNumber = $this->_createArrayFromString("number", $phoneNumber);
             // check to see if we are dealing with multiple phoneNumbers
             if (count($phoneNumber) == count($phoneNumber, COUNT_RECURSIVE)) {
@@ -201,9 +195,9 @@ class VCardService extends Component
 
     /**
      * @param $email
-     * @return array|VCard_EmailModel[]|string
+     * @return VCard_EmailModel[]
      */
-    private function _populateEmailModel($email)
+    private function _populateEmailModel($email): array
     {
         if (is_array($email)) {
             if (ArrayHelper::isAssociative($email)) {
@@ -223,14 +217,14 @@ class VCardService extends Component
             return [new VCard_EmailModel($email)];
         }
 
-        return '';
+        return [];
     }
 
     /**
      * @param $url
-     * @return array|VCard_UrlModel[]|string
+     * @return VCard_UrlModel[]
      */
-    private function _populateUrlModel($url)
+    private function _populateUrlModel($url): array
     {
         if (is_array($url)) {
             if (ArrayHelper::isAssociative($url)) {
@@ -250,7 +244,7 @@ class VCardService extends Component
             return [new VCard_UrlModel($url)];
         }
 
-        return '';
+        return [];
     }
 
     /**
@@ -360,7 +354,7 @@ class VCardService extends Component
      * @param string $optionsString
      * @return mixed
      */
-    public function decodeUrlParam(string $optionsString = "")
+    public function decodeUrlParam(string $optionsString = ""): mixed
     {
         $optionsString = $this->decrypt($optionsString);
         return unserialize($optionsString);
@@ -372,7 +366,7 @@ class VCardService extends Component
      */
     protected function encrypt($string): string
     {
-        $key = VCard::$plugin->getSettings()->salt;
+        $key = VCard::getInstance()->getSettings()->salt;
         if (!$key || $key == 's34s4L7') {
             throw new RuntimeException('You must provide a valid salt key.');
         }
@@ -383,7 +377,7 @@ class VCardService extends Component
         return rtrim(
             strtr(
                 base64_encode(
-                    openssl_encrypt($string, 'aes128', md5($key), true, $iv)
+                    openssl_encrypt($string, 'aes128', md5($key), OPENSSL_RAW_DATA, $iv)
                 ),
                 '+/', '-_'
             ), '='
@@ -396,7 +390,7 @@ class VCardService extends Component
      */
     public function decrypt($string): string
     {
-        $key = VCard::$plugin->getSettings()->salt;
+        $key = VCard::getInstance()->getSettings()->salt;
         if (!$key || $key == 's34s4L7') {
             throw new RuntimeException('You must provide a valid salt key.');
         }
@@ -409,11 +403,10 @@ class VCardService extends Component
                 base64_decode(str_pad(strtr($string, '-_', '+/'), strlen($string) % 4, '=', STR_PAD_RIGHT)),
                 'aes128',
                 md5($key),
-                true,
+                OPENSSL_RAW_DATA,
                 $iv
             ),
             "\0"
         );
     }
-
 }

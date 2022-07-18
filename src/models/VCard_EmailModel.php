@@ -1,27 +1,21 @@
 <?php
 /**
- * vCard plugin for Craft CMS 3.x
+ * vCard plugin for Craft CMS 4.x
  *
- * vCard generator plugin for Craft cms 3
+ * vCard generator plugin for Craft CMS 4
  *
  * @link      http://n43.me
- * @copyright Copyright (c) 2019 Nathaniel Hammond (nfourtythree)
+ * @copyright Copyright (c) 2022 Nathaniel Hammond (nfourtythree)
  */
 
 namespace nfourtythree\vcard\models;
 
-use nfourtythree\vcard\VCard;
-
-use Craft;
 use craft\base\Model;
+
+use nfourtythree\vcard\VCard;
 
 /**
  * VCard_EmailModel Model
- *
- * Models are containers for data. Just about every time information is passed
- * between services, controllers, and templates in Craft, it’s passed via a model.
- *
- * https://craftcms.com/docs/plugins/models
  *
  * @author    Nathaniel Hammond (nfourtythree)
  * @package   VCard
@@ -29,29 +23,20 @@ use craft\base\Model;
  */
 class VCard_EmailModel extends Model
 {
-    // Public Properties
-    // =========================================================================
-    public $address = '';
-    public $type = '';
-
-    // Public Methods
-    // =========================================================================
+    public string $address = '';
+    public string $type = '';
 
     /**
      * Returns the validation rules for attributes.
      *
-     * Validation rules are used by [[validate()]] to check if attribute values are valid.
-     * Child classes may override this method to declare different validation rules.
-     *
-     * More info: http://www.yiiframework.com/doc-2.0/guide-input-validation.html
-     *
      * @return array
      */
-    public function rules()
+    public function defineRules(): array
     {
-        return [
-          [ 'address' ,'string' ],
-          [ 'type' ,'string' ],
-        ];
+        $rules = parent::defineRules();
+        $rules[] = ['address', 'string'];
+        $rules[] = ['type', 'string'];
+
+        return $rules;
     }
 }
