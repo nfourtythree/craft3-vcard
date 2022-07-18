@@ -1,6 +1,6 @@
 # Release notes for vCard
 
-## Unreleased
+## 2.0.0 - 2022-07-18
 
 ### Changed
 - vCard now requires Craft CMS 4.1.0 or later.
