@@ -1,43 +1,64 @@
 {
-    "name": "nfourtythree/vcard",
-    "description": "vCard generator plugin for Craft CMS 4",
-    "type": "craft-plugin",
-    "keywords": [
-        "craft",
-        "cms",
-        "craftcms",
-        "craft-plugin",
-        "vcard"
-    ],
-    "support": {
-        "docs": "https://github.com/nfourtythree/craft3-vcard/blob/master/README.md",
-        "issues": "https://github.com/nfourtythree/craft3-vcard/issues"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Nathaniel Hammond (nfourtythree)",
-            "homepage": "http://n43.me"
-        }
-    ],
-    "require": {
-        "craftcms/cms": "^4.0.0",
-        "jeroendesloovere/vcard": "^1.7"
-    },
-    "autoload": {
-        "psr-4": {
-          "nfourtythree\\vcard\\": "src/"
-        }
-    },
-    "extra": {
-        "name": "vCard",
-        "handle": "vcard",
-        "hasCpSettings": false,
-        "hasCpSection": false,
-        "changelogUrl": "https://raw.githubusercontent.com/nfourtythree/craft3-vcard/master/CHANGELOG.md",
-        "components": {
-            "vCardService": "nfourtythree\\vcard\\services\\VCardService"
-        },
-        "class": "nfourtythree\\vcard\\VCard"
+  "name": "nfourtythree/vcard",
+  "description": "vCard generator plugin for Craft CMS 4",
+  "type": "craft-plugin",
+  "keywords": [
+    "craft",
+    "cms",
+    "craftcms",
+    "craft-plugin",
+    "vcard"
+  ],
+  "support": {
+    "docs": "https://github.com/nfourtythree/craft3-vcard/blob/master/README.md",
+    "issues": "https://github.com/nfourtythree/craft3-vcard/issues"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nathaniel Hammond (nfourtythree)",
+      "homepage": "https://n43.me"
     }
+  ],
+  "require": {
+    "php": "^8.0.2",
+    "craftcms/cms": "^4.0.0",
+    "jeroendesloovere/vcard": "^1.7"
+  },
+  "require-dev": {
+    "craftcms/phpstan": "dev-main",
+    "craftcms/ecs": "dev-main"
+  },
+  "autoload": {
+    "psr-4": {
+      "nfourtythree\\vcard\\": "src/"
+    }
+  },
+  "scripts": {
+    "phpstan": "phpstan --memory-limit=1G",
+    "check-cs": "ecs check --ansi",
+    "fix-cs": "ecs check --ansi --fix"
+  },
+  "extra": {
+    "name": "vCard",
+    "handle": "vcard",
+    "hasCpSettings": false,
+    "hasCpSection": false,
+    "changelogUrl": "https://raw.githubusercontent.com/nfourtythree/craft3-vcard/master/CHANGELOG.md",
+    "components": {
+      "vCardService": "nfourtythree\\vcard\\services\\VCardService"
+    },
+    "class": "nfourtythree\\vcard\\VCard"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    },
+    "platform": {
+      "php": "8.0.2"
+    }
+  }
 }
