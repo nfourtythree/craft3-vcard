@@ -111,7 +111,6 @@ class VCardService extends Component
                             'mimeType' => $vcardData->getContentType(),
                         ]);
                         Craft::$app->end();
-                        break;
                 }
             } else {
                 foreach ($vcard->getErrors() as $error) {
@@ -378,7 +377,7 @@ class VCardService extends Component
         return rtrim(
             strtr(
                 base64_encode(
-                    openssl_encrypt($string, 'aes128', md5($key), true, $iv)
+                    openssl_encrypt($string, 'aes128', md5($key), OPENSSL_RAW_DATA, $iv)
                 ),
                 '+/', '-_'
             ), '='
@@ -404,7 +403,7 @@ class VCardService extends Component
                 base64_decode(str_pad(strtr($string, '-_', '+/'), strlen($string) % 4, '=', STR_PAD_RIGHT)),
                 'aes128',
                 md5($key),
-                true,
+                OPENSSL_RAW_DATA,
                 $iv
             ),
             "\0"

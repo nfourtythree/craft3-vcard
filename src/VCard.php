@@ -21,6 +21,7 @@ use nfourtythree\vcard\services\VCardService;
 use nfourtythree\vcard\variables\VCardVariable;
 
 use yii\base\Event;
+use yii\base\InvalidConfigException;
 
 /**
  * Vcard
@@ -29,6 +30,7 @@ use yii\base\Event;
  * @package   VCard
  * @since     1.0.0
  *
+ * @method VCardSettings getSettings()
  * @property-read VCardService $service
  */
 class VCard extends Plugin
