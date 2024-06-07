@@ -323,6 +323,10 @@ class VCardService extends Component
             $vcard->addNote($vcardModel->note);
         }
 
+        if ($vcardModel->role) {
+            $vcard->addRole($vcardModel->role);
+        }
+
         return $vcard;
     }
 

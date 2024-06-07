@@ -1,5 +1,10 @@
 # Release notes for vCard
 
+## Unreleased
+
+- It is now possible to specify a role for the vCard. ([#20](https://github.com/nfourtythree/craft3-vcard/issues/20))
+- Added `nfourtythree\vcard\models\VCardModel::$role`.
+
 ## 2.0.0 - 2022-07-18
 
 ### Changed

@@ -70,6 +70,7 @@ There is a link variable available for usage in templates `craft.vCard.link(opti
       type: "HOME;POSTAL"
     }],
   note: "Hi there",
+  role: "Web Developer",
 } %}
 
 <a href="{{ craft.vCard.link(options) }}">Download my vCard</a>
