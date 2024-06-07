@@ -4,7 +4,7 @@
 
 - vCard now requires Craft CMS 5.0.0 or later.
 
-## Unreleased
+## 2.1.0 - 2024-06-07
 
 - It is now possible to specify a role for the vCard. ([#20](https://github.com/nfourtythree/craft3-vcard/issues/20))
 - Added `nfourtythree\vcard\models\VCardModel::$role`.
