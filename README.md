@@ -6,7 +6,7 @@ vCard generator plugin for Craft CMS 4
 
 ## Requirements
 
-This plugin requires Craft CMS 4.1.0 or later.
+This plugin requires Craft CMS 5.0.0 or later.
 
 ## Installation
 
@@ -30,7 +30,15 @@ This plugin generates a link to download a vCard from data you specify
 
 There is only one setting for this plugin which is `salt` this is a `string` used for salting the encoded data when generating the vCard link.
 
-This can be set by creating a `vcard.php` config file in the `config/` directory. Please copy the `config.php` in the plugin for the correct layout.
+This can be set by creating a `vcard.php` config file in the `config/` directory. Below is an example of the config file:
+
+```php
+<?php
+
+return [
+    'salt' => 'your-salt-here'
+];
+```
 
 ## Using vCard
 

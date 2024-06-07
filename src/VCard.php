@@ -1,8 +1,8 @@
 <?php
 /**
- * vCard plugin for Craft CMS 4.x
+ * vCard plugin for Craft CMS 5.x
  *
- * vCard generator plugin for Craft CMS 4
+ * vCard generator plugin for Craft CMS 5
  *
  * @link      http://n43.me
  * @copyright Copyright (c) 2019 Nathaniel Hammond (nfourtythree)
@@ -10,6 +10,7 @@
 
 namespace nfourtythree\vcard;
 
+use Craft;
 use craft\base\Model;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
@@ -51,23 +52,25 @@ class VCard extends Plugin
     {
         parent::init();
 
-        $this->setComponents([
-            'service' => VCardService::class,
-        ]);
+        Craft::$app->onInit(function() {
+            $this->setComponents([
+                'service' => VCardService::class,
+            ]);
 
-        // Register our site routes
-        Event::on(
-            UrlManager::class,
-            UrlManager::EVENT_REGISTER_SITE_URL_RULES,
-            static function(RegisterUrlRulesEvent $event) {
-                $event->rules['vcard/download'] = 'vcard/default';
-            }
-        );
+            // Register our site routes
+            Event::on(
+                UrlManager::class,
+                UrlManager::EVENT_REGISTER_SITE_URL_RULES,
+                static function(RegisterUrlRulesEvent $event) {
+                    $event->rules['vcard/download'] = 'vcard/default';
+                }
+            );
 
-        Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, static function(Event $event) {
-            /** @var CraftVariable $variable */
-            $variable = $event->sender;
-            $variable->set('vCard', VCardVariable::class);
+            Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, static function(Event $event) {
+                /** @var CraftVariable $variable */
+                $variable = $event->sender;
+                $variable->set('vCard', VCardVariable::class);
+            });
         });
     }
 

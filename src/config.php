@@ -1,8 +1,7 @@
 <?php
 /**
- * vCard plugin for Craft CMS 4.x
+ * vCard plugin for Craft CMS 5.x
  *
- * vCard generator plugin for Craft CMS 4
  *
  * @link      http://n43.me
  * @copyright Copyright (c) 2022 Nathaniel Hammond (nfourtythree)
