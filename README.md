@@ -1,8 +1,8 @@
 ![Plugin Icon](resources/img/icon.png)
 
-# vCard plugin for Craft CMS 4.x
+# vCard plugin for Craft CMS 5.x
 
-vCard generator plugin for Craft CMS 4
+vCard generator plugin for Craft CMS 5
 
 ## Requirements
 
