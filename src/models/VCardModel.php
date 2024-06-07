@@ -39,6 +39,12 @@ class VCardModel extends Model
     public string $photo = '';
 
     /**
+     * @var string
+     * @since 2.1.0
+     */
+    public string $role = '';
+
+    /**
      * @inheritdoc
      */
     public function defineRules(): array
@@ -46,7 +52,20 @@ class VCardModel extends Model
         $rules = parent::defineRules();
 
         $rules[] = ['firstName', 'required'];
-        $rules[] = [['firstName', 'lastName', 'additional', 'prefix', 'suffix', 'company', 'jobTitle', 'birthday', 'note', 'photo'], 'string'];
+        $rules[] = [[
+            'firstName',
+            'lastName',
+            'additional',
+            'prefix',
+            'suffix',
+            'company',
+            'jobTitle',
+            'birthday',
+            'note',
+            'photo',
+            'role',
+        ], 'string'];
+
         return $rules;
     }
 }
